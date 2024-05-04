@@ -1,11 +1,6 @@
 import React from "react";
 import { Table } from "antd";
-const TableUser = ({
-  deleteSinhVien,
-  arrUser,
-  // getInfoSinhVien,
-  // handleUpdate,
-}) => {
+const TableUser = ({ deleteSinhVien, arrUser, handleUpdateUser }) => {
   console.log(arrUser); //hiển thị được arrUser
 
   const columns = [
@@ -35,17 +30,10 @@ const TableUser = ({
     {
       title: "Chức năng",
       dataIndex: "maSV",
-      render: (maSV) => {
+      render: (maSV, record) => {
+        console.log(record);
         return (
           <>
-            <button
-              // onClick={() => {
-              //   getInfoSinhVien(maSV);
-              // }}
-              className="py-2 px-4 rounded text-white bg-yellow-600 mr-3"
-            >
-              Sửa
-            </button>
             <button
               onClick={() => {
                 deleteSinhVien(maSV);
@@ -54,12 +42,14 @@ const TableUser = ({
             >
               Xoá
             </button>
-            {/* <button
-              onClick={handleUpdate}
-              className="py-2 px-4 rounded text-white bg-blue-600"
+            <button
+              onClick={() => {
+                handleUpdateUser(record);
+              }}
+              className="py-2 px-4 rounded text-white bg-yellow-600 mr-3"
             >
-              Cập nhật
-            </button> */}
+              Sửa
+            </button>
           </>
         );
       },
@@ -70,7 +60,7 @@ const TableUser = ({
     <div className="container mx-auto">
       <Table
         columns={columns}
-        dataSource={arrUser} //Không được bị lỗi
+        dataSource={arrUser}
         pagination={{ defaultPageSize: 20 }}
       />
     </div>

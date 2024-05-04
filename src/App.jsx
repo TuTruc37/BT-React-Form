@@ -9,15 +9,17 @@ import {
 function App() {
   const [arrUser, setArrUser] = useState([]);
   console.log(arrUser);
-  // state của sửa
-  // const [student, setStudent] = useState({});
-  // console.log(student);
+  const [updateUser, setUpdateUser] = useState({});
 
   const [messageApi, contextHolder] = message.useMessage();
   useEffect(() => {
     getDataFromLocalStorage();
   }, []);
-
+  const handleUpdateUser = (user) => {
+    console.log(user);
+    setUpdateUser(user);
+    handleMessage("success", "Lấy thông tin thành công");
+  };
   const getDataFromLocalStorage = () => {
     const data = handleGetValueLocalStore("arrUser");
     setArrUser(data);
@@ -39,33 +41,7 @@ function App() {
       handleMessage("error", error);
     }
   };
-  // lấy dữ liệu lên input
-  // const getInfoSinhVien = (maSV) => {
-  //   const data = arrUser.find((item) => item.maSV === maSV);
-  //   setStudent(data);
-  // };
-  // // thay đổi dữ liệu
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setStudent((prevStudent) => ({
-  //     ...prevStudent,
-  //     [name]: value,
-  //   }));
-  // };
-  // const handleUpdate = () => {
-  //   // Thực hiện logic cập nhật dữ liệu đã sửa ở đây
-  //   console.log(student);
-  //   // Cập nhật lại dữ liệu trong arrUser
-  //   const updatedArrUser = arrUser.map((item) => {
-  //     if (item.maSV === student.maSV) {
-  //       return student;
-  //     }
-  //     return item;
-  //   });
-  //   setArrUser(updatedArrUser);
-  //   // Hiển thị thông báo hoặc thực hiện các tác vụ khác
-  //   handleMessage("success", "Dữ liệu đã được cập nhật");
-  // };
+
   return (
     <>
       {contextHolder}
@@ -79,8 +55,7 @@ function App() {
           handleSetValueLocalStore={handleSetValueLocalStore}
           handleMessage={handleMessage}
           handleGetValueLocalStore={handleGetValueLocalStore}
-          // student={student}
-          // handleChange={handleChange}
+          updateUser={updateUser}
         />
         {/* Table */}
         <TableUser
@@ -88,8 +63,7 @@ function App() {
           arrUser={arrUser}
           handleMessage={handleMessage}
           deleteSinhVien={deleteSinhVien}
-          // getInfoSinhVien={getInfoSinhVien}
-          // handleUpdate={handleUpdate}
+          handleUpdateUser={handleUpdateUser}
         />
       </div>
     </>
